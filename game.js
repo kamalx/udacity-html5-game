@@ -1,29 +1,32 @@
 var canvas = null;
 var context = null;
-var assets = ['/media/js/standalone/libs/gamedev_assets/robowalk/robowalk00.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk01.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk02.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk03.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk04.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk05.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk06.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk07.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk08.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk09.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk10.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk11.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk12.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk13.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk14.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk15.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk16.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk17.png',
-			  '/media/js/standalone/libs/gamedev_assets/robowalk/robowalk18.png'
+var framerate = 30;
+var frame = 0;
+
+var assets = ['http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk00.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk01.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk02.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk03.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk04.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk05.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk06.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk07.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk08.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk09.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk10.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk11.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk12.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk13.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk14.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk15.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk16.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk17.png',
+			  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk18.png'
 			 ];
 var frames = [];
 
 var onImageLoad = function(){
-	console.log("IMAGE!!!");
+	console.log("Robot loaded!");
 };
 
 var setup = function() {
@@ -41,7 +44,15 @@ var setup = function() {
 	// in the correct order.
 	// Afterwards, call setInterval to run at a framerate of 30 frames 
 	// per second, calling the animate function each time.
-	// YOUR CODE HERE
+	
+	for( var i = 0; i < assets.length; i++ ) {
+		img = new Image();
+		img.onload = function() { onImageLoad(); };
+		img.src = assets[i];
+		frames.push(img);
+	}
+
+	setInterval(animate, 1000 / framerate);
 };
 
 var animate = function(){
@@ -52,7 +63,10 @@ var animate = function(){
     // Try your code with this call to clearRect commented out
     // and uncommented to see what happens!
     //
-    //context.clearRect(0,0,canvas.width, canvas.height);
-  
-	// YOUR CODE HERE
+    
+    context.clearRect(0,0,canvas.width, canvas.height);
+  	
+	context.drawImage(frames[frame], 0, 0);
+	frame = (frame+1) % frames.length;
+	console.log(frame);
 };
