@@ -7,30 +7,42 @@
 	<body id="body">
 
 <script>
+var canvas = null;
+var context = null;
+var img = null;
 
-setup = function() {
-	var body = document.getElementById('body');
-	var canvas = document.createElement('canvas');
+var onImageLoad = function() {
+	// Logging it
+	console.log("Image ", img.src," loaded");
 
-	var context = canvas.getContext('2d');
-	
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
-
-	body.appendChild(canvas);
-
-	// Create a new image with a src of "/media/js/standalone/libs/gamedev_assets/ralphyrobot.png" and onload of onImageLoad
-	image = document.createElement("img");
-    image.onload = onImageLoad;
-    image.src = "http://www.udacity.com/media/js/standalone/libs/gamedev_assets/ralphyrobot.png";
-    
-    context.drawImage(image, 192, 192);
+	// Drawing it.
+	context.drawImage(img, 0, 0);
 };
 
-onImageLoad = function(){
-	// Use the console.log function to print a statement to the browser console.
-	// This will print once the image has been downloaded.
-	console.log("Ralphy robot is here!");
+
+var setup = function() {
+	var body = document.getElementById("body");
+	
+	// create the stage
+	canvas = document.createElement("canvas");
+
+	// store its context
+	context = canvas.getContext('2d');
+
+	// set its parameters
+	canvas.setAttribute("width", 500);
+	canvas.setAttribute("height", 700);
+
+	// append stage to body
+	body.appendChild(canvas);
+
+	// Create new image
+	img = new Image();
+	img.onload = function() { onImageLoad(); }
+	img.src = "http://www.udacity.com/media/js/standalone/libs/gamedev_assets/ralphyrobot.png";
+
+	// Once image is loaded, do what you want to do with it in the callback function onImageLoad
+
 };
 
 setup();
