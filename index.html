@@ -6,45 +6,8 @@
 	</head>
 	<body id="body">
 
+<script type="text/javascript" src="game.js"></script>
 <script>
-var canvas = null;
-var context = null;
-var img = null;
-
-var onImageLoad = function() {
-	// Logging it
-	console.log("Image ", img.src," loaded");
-
-	// Drawing it.
-	context.drawImage(img, 0, 0);
-};
-
-
-var setup = function() {
-	var body = document.getElementById("body");
-	
-	// create the stage
-	canvas = document.createElement("canvas");
-
-	// store its context
-	context = canvas.getContext('2d');
-
-	// set its parameters
-	canvas.setAttribute("width", 500);
-	canvas.setAttribute("height", 700);
-
-	// append stage to body
-	body.appendChild(canvas);
-
-	// Create new image
-	img = new Image();
-	img.onload = function() { onImageLoad(); }
-	img.src = "http://www.udacity.com/media/js/standalone/libs/gamedev_assets/ralphyrobot.png";
-
-	// Once image is loaded, do what you want to do with it in the callback function onImageLoad
-
-};
-
 setup();
 </script>
 	</body>
